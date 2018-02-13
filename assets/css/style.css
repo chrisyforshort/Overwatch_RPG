@@ -1,0 +1,45 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
+.bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: scroll;
+    height: 100%;
+    background-position: center;
+}
+
+@font-face {
+    font-family: "myfont";
+    src: url("../images/bignoodletoo.woff") format('woff');
+}
+
+body {
+    font-family: "myfont";
+    text-align: center;
+    font-size: 25px;
+}
+
+.words {
+    font-size: 80px;
+    vertical-align: -19px;
+}
+
+.myBattleRow{
+    text-align: center;
+    background-color: azure;
+    border: solid, black;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+p {
+    text-align: center;
+    background-color: azure;
+    border: solid, black;
+}
+
