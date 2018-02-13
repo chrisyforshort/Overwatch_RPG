@@ -60,7 +60,7 @@ $(document).ready(function () {
         }
     }
 
-    // Selecting first hero and first enemy //
+    // Selecting hero and enemy //
     $(document).on("click", ".myChar", function () {
         if (isHeroChosen == false) {
             chosenHero = charArr[$(this).attr("value")]
@@ -105,7 +105,7 @@ $(document).ready(function () {
             $("#heroHealth").text(chosenHero.health)
             $(".myBattleRow").append("<p id='words'>" + chosenEnemy.name + " attacked " + chosenHero.name + " for " + num2 + " points! </p>")
                 if (chosenEnemy.health <= 0) {
-                    $(".myBattleRow").html("<p> Victory! Choose your new Enemy.</p>")
+                    $(".myBattleRow").html("<p id='wordsVic'> Victory! Choose your new Enemy.</p>")
                     let victory = new Audio('assets/audio/victory.mp3')
                     victory.play()
                     isEnemyChosen = false
@@ -115,7 +115,7 @@ $(document).ready(function () {
                 }
                 else if (chosenHero.health <= 0) {
                     $(chosenHero).hide()
-                    $(".myBattleRow").html("<p id='words'> You have been defeated! Try again.</p>")
+                    $(".myBattleRow").html("<p id='wordsDef'> You have been defeated! Try again.</p>")
                     let defeat = new Audio('assets/audio/defeat.mp3')
                     defeat.play()
                     $("#restartBTN").show()
