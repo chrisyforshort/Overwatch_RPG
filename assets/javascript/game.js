@@ -14,42 +14,48 @@ $(document).ready(function () {
             name: 'reaper',
             health: 200,
             attack: 25,
-            image: "assets/images/reaper_chibi.png",
+            image: 'assets/images/reaper_chibi.png',
             counter: 25,
+            sound: 'assets/audio/backfrom.mp3',
         },
 
         {
             name: 'soldier 76',
             health: 210,
             attack: 19,
-            image: "assets/images/soldier76.png",
+            image: 'assets/images/soldier76.png',
             counter: 28,
+            sound: 'assets/audio/wereallsoldiers.mp3',
         },
         {
             name: 'dva',
             health: 300,
             attack: 16,
-            image: "assets/images/Chibi_D.va.png",
+            image: 'assets/images/Chibi_D.va.png',
             counter: 20,
+            sound: 'assets/audio/winkyface.mp3',
         },
         {
             name: 'genji',
             health: 250,
             attack: 18,
-            image: "assets/images/genji_chibi.png",
+            image: 'assets/images/genji_chibi.png',
             counter: 30,
+            sound: 'assets/audio/genjiis.mp3',
         },
     ]
 
     // Game starts //
     function initGame() {
         $("#restartBTN").hide()
-        isHeroChosen = false;
-        isEnemyChosen = false;
+        isHeroChosen = false
+        isEnemyChosen = false
+        let newHero = new Audio('assets/audio/newhero.mp3')
+        newHero.play()
         // Brings list of character to screen //
         for (var i = 0; i < charArr.length; i++) {
             var num = Math.floor(12 / charArr.length)
-            var charThing = $("<div class='myChar col-md-" + num + "' value='" + i + "'><p>Select</p><img src='" + charArr[i].image + "' style='width:150px;height:150px;'</div>")
+            var charThing = $("<div class='myChar col-md-" + num + "' value='" + i + "'><p id='select'>Select</p><img src='" + charArr[i].image + "' style='width:150px;height:150px;'</div>")
             $("#characters").append(charThing)
         }
     }
@@ -59,6 +65,8 @@ $(document).ready(function () {
         if (isHeroChosen == false) {
             chosenHero = charArr[$(this).attr("value")]
             $(this).addClass("fader")
+            var heroSound = new Audio(chosenHero.sound);
+            heroSound.play();
             isHeroChosen = true
             var myHeroThing = $("<div id='" + chosenHero.name + "' ><img src='" + chosenHero.image + "'style='width:200px;height:200px;'/><p>"
                 + chosenHero.name + "</p><p>HP</p><p id='heroHealth'>" + chosenHero.health + "</p></div>")
@@ -67,17 +75,22 @@ $(document).ready(function () {
         else if (isEnemyChosen == false && chosenHero.name != charArr[$(this).attr("value")].name) {
             chosenEnemy = charArr[$(this).attr("value")]
             $(this).addClass("fader")
+            var enemySound = new Audio(chosenEnemy.sound);
+            enemySound.play();
             isEnemyChosen = true
             var myEnemyThing = $("<div id='" + chosenEnemy.name + "' ><img src='" + chosenEnemy.image + "'style='width:200px;height:200px;'/><p>"
                 + chosenEnemy.name + "</p><p>HP</p><p id='enemyHealth'>" + chosenEnemy.health + "</p></div>")
             $("#myEnemy").html(myEnemyThing)
+        }
+        else if (isHeroChosen == true && isEnemyChosen == true) {
+            $(".myBattleRow").html("<p id='words'>Click the 'Attack' button to continue ...")
         }
     })
 
     // Attack Button //
     $("#attackBTN").on("click", function(){
         if (isHeroChosen == false || isEnemyChosen == false) {
-            $(".myBattleRow").html("<p>Please choose your Hero or Enemy first")
+            $(".myBattleRow").html("<p id='words'>Please choose your Hero or Enemy first")
         }
         if (isHeroChosen == true && isEnemyChosen == true) {
             $("#characters").hide()
@@ -87,12 +100,14 @@ $(document).ready(function () {
             // var num2 = chosenHero.counter
             chosenEnemy.health -= num1
             $("#enemyHealth").text(chosenEnemy.health)
-            $(".myBattleRow").html("<p>" + chosenHero.name + " attacked " + chosenEnemy.name + " for " + num1 + " points! </p>")
+            $(".myBattleRow").html("<p id='words'>" + chosenHero.name + " attacked " + chosenEnemy.name + " for " + num1 + " points! </p>")
             chosenHero.health -= num2
             $("#heroHealth").text(chosenHero.health)
-            $(".myBattleRow").append("<p>" + chosenEnemy.name + " attacked " + chosenHero.name + " for " + num2 + " points! </p>")
+            $(".myBattleRow").append("<p id='words'>" + chosenEnemy.name + " attacked " + chosenHero.name + " for " + num2 + " points! </p>")
                 if (chosenEnemy.health <= 0) {
-                    $(".myBattleRow").html("<p> YOU WIN! Choose your new Enemy.</p>")
+                    $(".myBattleRow").html("<p> Victory! Choose your new Enemy.</p>")
+                    let victory = new Audio('assets/audio/victory.mp3')
+                    victory.play()
                     isEnemyChosen = false
                     $(chosenEnemy).hide()
                     $("#characters").show()
@@ -100,7 +115,9 @@ $(document).ready(function () {
                 }
                 else if (chosenHero.health <= 0) {
                     $(chosenHero).hide()
-                    $(".myBattleRow").html("<p> YOU LOSE! Try again.</p>")
+                    $(".myBattleRow").html("<p id='words'> You have been defeated! Try again.</p>")
+                    let defeat = new Audio('assets/audio/defeat.mp3')
+                    defeat.play()
                     $("#restartBTN").show()
                 }
         }
@@ -131,6 +148,7 @@ $(document).ready(function () {
             attack: 25,
             image: "assets/images/reaper_chibi.png",
             counter: 25,
+            sound: 'assets/audio/backfrom.mp3',
         },
 
         {
@@ -139,6 +157,7 @@ $(document).ready(function () {
             attack: 19,
             image: "assets/images/soldier76.png",
             counter: 28,
+            sound: 'assets/audio/wereallsoldiers.mp3',
         },
         {
             name: 'dva',
@@ -146,6 +165,7 @@ $(document).ready(function () {
             attack: 16,
             image: "assets/images/Chibi_D.va.png",
             counter: 20,
+            sound: 'assets/audio/winkyface.mp3',
         },
         {
             name: 'genji',
@@ -153,6 +173,7 @@ $(document).ready(function () {
             attack: 18,
             image: "assets/images/genji_chibi.png",
             counter: 30,
+            sound: 'assets/audio/genjiis.mp3',
         },
     ]
     }

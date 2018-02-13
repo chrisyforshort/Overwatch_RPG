@@ -24,22 +24,36 @@ body {
     font-size: 25px;
 }
 
-.words {
+.title {
     font-size: 80px;
     vertical-align: -19px;
+}
+
+#select {
+    border-radius: 5px;
+    width: 150px;
+    position: relative;
+    left: 90px;
+    background-color: rgb(253,192,47);
+    padding: 3px;
 }
 
 .myBattleRow{
     text-align: center;
     background-color: azure;
-    border: solid, black;
     overflow: hidden;
     max-height: 400px;
+    border-radius: 5px;
 }
 
 p {
     text-align: center;
     background-color: azure;
-    border: solid, black;
+
 }
 
+#words {
+    position: relative;
+    left: 80px;
+    padding: 5px;
+}
